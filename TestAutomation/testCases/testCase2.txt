@@ -1,0 +1,7 @@
+ID= #002
+ContrastChecker
+distanceColor
+Works for identical inputs
+new Color(100,100,100),new Color(100,100,100)
+Comandline input (as string)
+0.0

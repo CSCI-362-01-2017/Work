@@ -1,0 +1,7 @@
+ID= #004
+ContrastChecker
+distanceColor
+Works when passed black and white
+new Color(0,0,0), new Color(255,255,255)
+Comandline input (as string)
+441.672955930063709849498817084

@@ -1,0 +1,7 @@
+ID= #001
+ContrastChecker
+distanceColor
+Fails if not passed anything
+null
+Comandline input (as string)
+Error
