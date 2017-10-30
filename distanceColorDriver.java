@@ -16,9 +16,9 @@ public class distanceColorDriver {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Color color1 = new Color(10, 200, 10);
-        Color color2 = new Color(10, 200, 100);
-        System.out.print(calculate(color1, color2));
+        Color color1 = new Color(args[0]);
+        Color color2 = new Color(args[1]);
+        calculate(color1, color2);
         
           
     }
