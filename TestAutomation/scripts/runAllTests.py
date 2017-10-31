@@ -29,7 +29,18 @@ def runTest():
         mylist.append(indent * 2 + "</tr>\n")
         mylist.append(indent + "</table>\n")
         mylist.append("</body>\n")
-        
+	 '''
+        1. Populate table with test case information.
+        2. Run drive
+        3. Populate table with return value (sucess or fail)
+        4. run next test
+        '''
+        for i in range(numTests):
+            testName = "testCase" + str(i)
+            [iD,classFilePath,method,requirement,inputs,driverFilePath,oracle] = readTest(testName)
+            compileStatement = ".\..\
+            os.system(compileStatement)
+	
         makeHTML(mylist)
 
 def makeHTML(mylist):
@@ -40,8 +51,19 @@ def makeHTML(mylist):
 
         controller = webbrowser.get()
         controller.open('file://' + os.path.realpath(filename))
+	
+def readTest(testName):
+    file = open(testName,'r')
+    iD = file.readline()
+    className = file.readline()
+    method = file.readline()
+    requirement = file.readline()
+    inputs = file.readline()
+    driverFilePath = file.readline()
+    oracle = file.readline()
+    return [iD,className,method,requirement,inputs,driverFilePath,oracle]
         
-def main():
-	runTest()
+def main(numTests):
+	runTest(numTests)
 
-main()
+main(5)
