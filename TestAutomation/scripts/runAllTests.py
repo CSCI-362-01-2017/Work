@@ -24,11 +24,9 @@ def runTest(numTests):
         mylist.append(indent * 3 + "<th>Method</th>\n")
         mylist.append(indent * 3 + "<th>Input</th>\n")
         mylist.append(indent * 3 + "<th>Oracle</th>\n")
-        mylist.append(indent * 3 + "<th>Outcome</th>\n")
+#        mylist.append(indent * 3 + "<th>Outcome</th>\n")
         mylist.append(indent * 3 + "<th>Status</th>\n")
         mylist.append(indent * 2 + "</tr>\n")
-        mylist.append(indent + "</table>\n")
-        mylist.append("</body>\n")
 #	    '''
 #        1. Populate table with test case information.
 #        2. Run drive
@@ -36,12 +34,26 @@ def runTest(numTests):
 #        4. run next test
 #        '''
         for i in range(numTests):
+            mylist.append(indent * 2 + "<tr>\n")
             testName = "./../TestCases/testCase" + str(i) + '.txt'
             [iD,className,method,requirement,inputs,driverFileName,oracle] = readTest(testName)
             compileLine = "javac ./../testCaseExecutables/" + driverFileName
             runLine = "java ./../testCaseExecutables/" + className + "Driver " + method + " " + inputs + " " + oracle
             os.system(compileLine)
             os.system(runLine)
+            file = open('./../temp/results.txt',r)
+            result = hi# file.readline()
+            file.close()
+            mylist.append(indent * 3 + "<th>" + id + "</th>\n")
+            mylist.append(indent * 3 + "<th>" + className + "</th>\n")
+            mylist.append(indent * 3 + "<th>" + method + "</th>\n")
+            mylist.append(indent * 3 + "<th>" + inputs + "</th>\n")
+            mylist.append(indent * 3 + "<th>" + oracle + "</th>\n")
+            mylist.append(indent * 3 + "<th>" + result + "</th>\n")
+            mylist.append("</tr>\n")
+
+        mylist.append(indent + "</table>\n")
+        mylist.append("</body>\n")
 	
         makeHTML(mylist)
 
