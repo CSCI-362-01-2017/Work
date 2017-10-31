@@ -37,11 +37,9 @@ def runTest(numTests):
         '''
         for i in range(numTests):
             testName = "testCase" + str(i)
-            [iD,className,method,requirement,inputs,driverFileName,oracle] = readTest(testName)
-            compileLine = "javac ./../testCaseExecutables/" + driverFileName
-            runLine = "java ./../testCaseExecutables/" + className + "Driver " + method + " " + inputs + " " + oracle
-            os.system(compileLine)
-            os.system(runLine)
+            [iD,classFilePath,method,requirement,inputs,driverFilePath,oracle] = readTest(testName)
+            compileStatement = ".\..\
+            os.system(compileStatement)
         
         makeHTML(mylist)
 
@@ -57,13 +55,13 @@ def makeHTML(mylist):
 def readTest(testName):
     file = open(testName,'r')
     iD = file.readline()
-    classFilePath = file.readline()
+    className = file.readline()
     method = file.readline()
     requirement = file.readline()
     inputs = file.readline()
     driverFilePath = file.readline()
     oracle = file.readline()
-    return [iD,classFilePath,method,requirement,inputs,driverFilePath,oracle]
+    return [iD,className,method,requirement,inputs,driverFilePath,oracle]
         
 def main(numTests):
 	runTest(numTests)
