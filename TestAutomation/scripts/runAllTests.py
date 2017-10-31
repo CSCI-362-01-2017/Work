@@ -41,10 +41,10 @@ def runTest(numTests):
             runLine = "java ./../testCaseExecutables/" + className + "Driver " + method + " " + inputs + " " + oracle
             os.system(compileLine)
             os.system(runLine)
-            file = open('./../temp/results.txt',r)
-            result = hi# file.readline()
+            file = open('./../temp/results.txt','r')
+            result = file.readline()
             file.close()
-            mylist.append(indent * 3 + "<th>" + id + "</th>\n")
+            mylist.append(indent * 3 + "<th>" + iD + "</th>\n")
             mylist.append(indent * 3 + "<th>" + className + "</th>\n")
             mylist.append(indent * 3 + "<th>" + method + "</th>\n")
             mylist.append(indent * 3 + "<th>" + inputs + "</th>\n")
