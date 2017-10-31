@@ -37,9 +37,11 @@ def runTest():
         '''
         for i in range(numTests):
             testName = "testCase" + str(i)
-            [iD,classFilePath,method,requirement,inputs,driverFilePath,oracle] = readTest(testName)
-            compileStatement = ".\..\
-            os.system(compileStatement)
+            [iD,className,method,requirement,inputs,driverFileName,oracle] = readTest(testName)
+            compileLine = "javac ./../testCaseExecutables/" + driverFileName
+            runLine = "java ./../testCaseExecutables/" + className + "Driver " + method + " " + inputs + " " + oracle
+            os.system(compileLine)
+            os.system(runLine)
 	
         makeHTML(mylist)
 
