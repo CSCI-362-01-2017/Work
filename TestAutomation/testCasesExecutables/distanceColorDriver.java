@@ -16,11 +16,38 @@ public class distanceColorDriver {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Color color1 = new Color(10, 200, 10);
-        Color color2 = new Color(10, 200, 100);
-        System.out.print(calculate(color1, color2));
-        
-          
+    	if(args.length == 3)
+    	{
+    		String color1Values = args[0];
+    		String color2Values = args[1];
+    		double oracle = args[2];
+    	}
+    	else if(args.length == 2)
+    	{
+    		String color1Values = args[0];
+    		double oracle = args[1];
+    	}
+    	else if(args.length == 1)
+    	{
+    		double oracle = args[0];
+    	}
+    	String[] color1Val = split(color1Values,',');
+    	String[] color2Vals = split(color2Values,',');
+        Color color1 = new Color(color1Val[0], color1Val[1], color1Val[2]);
+        Color color2 = new Color(color2Val[0], color2Val[1], color2Val[2]);
+        double result = calculate(color1, color2));
+		if(result == oracle)
+		{
+			String passfail = "true"
+		}
+		else
+		{
+			String passfail = "false"
+		}
+		PrintWriter writer = new PrintWriter("./../temp/result.txt", "UTF-8");
+		writer.println(passfail);
+		writer.close();
+         
     }
     
 }
