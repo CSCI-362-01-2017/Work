@@ -6,7 +6,7 @@
 import webbrowser
 import os
 
-def runTest():
+def runTest(numTests):
         indent = "    "
         mylist = []
         
@@ -29,14 +29,14 @@ def runTest():
         mylist.append(indent * 2 + "</tr>\n")
         mylist.append(indent + "</table>\n")
         mylist.append("</body>\n")
-	 '''
-        1. Populate table with test case information.
-        2. Run drive
-        3. Populate table with return value (sucess or fail)
-        4. run next test
-        '''
+#	    '''
+#        1. Populate table with test case information.
+#        2. Run drive
+#        3. Populate table with return value (sucess or fail)
+#        4. run next test
+#        '''
         for i in range(numTests):
-            testName = "testCase" + str(i)
+            testName = "./../TestCases/testCase" + str(i) + '.txt'
             [iD,className,method,requirement,inputs,driverFileName,oracle] = readTest(testName)
             compileLine = "javac ./../testCaseExecutables/" + driverFileName
             runLine = "java ./../testCaseExecutables/" + className + "Driver " + method + " " + inputs + " " + oracle
