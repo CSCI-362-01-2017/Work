@@ -1,7 +1,7 @@
 1. ID= #XXX
-2. Class being tested (relative file path as string)
-3. Method being tested (as string)
-4. Requirement Being run (as string)
-5. Inputs (as object(s))
-6. Comandline input (as string)
-7. Expected resut (as return type?)
+2. Class being tested (File name with extention)
+3. Method being tested (full header)
+4. Requirement Being run
+5. Inputs (arguments required to make the input object/primitive)
+6. Driver File name with extention
+7. Expected resut
