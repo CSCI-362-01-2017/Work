@@ -1,7 +1,7 @@
 ID= #003
-ContrastChecker
-distanceColor
+DistanceCalculator.java
+public static double calculate(Color colorToChange, Color colorToKeep)
 Works when passed different colors
-new Color(100,100,100), new Color(200,50,123)
-Comandline input (as string)
+100,100,100 200,50,123
+distanceColorDriver.java
 166.21973408714141003380012224457

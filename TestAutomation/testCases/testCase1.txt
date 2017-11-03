@@ -1,7 +1,7 @@
 ID= #001
-ContrastChecker
-distanceColor
+DistanceCalculator.java
+public static double calculate(Color colorToChange, Color colorToKeep)
 Fails if not passed anything
-null
-Comandline input (as string)
+
+distanceColorDriver.java
 Error
