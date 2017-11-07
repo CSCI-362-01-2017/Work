@@ -1,7 +1,0 @@
-1. ID: XXX
-2. Class being tested (relative file path as string)
-3. Method being tested (as string)
-4. Requirement Being run (as string)
-5. Inputs (as object(s))
-6. Driver (relative file path as string)
-7. Expected resut (as return type?)
