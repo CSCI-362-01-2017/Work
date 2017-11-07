@@ -1,0 +1,141 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page pageEncoding="UTF-8"%>
+<jsp:useBean id="now" class="java.util.Date" scope="page" />
+    <c:set var="properQueryString" scope="page" value="${fn:replace(pageContext.request.queryString, '&', '&amp;')}"/>
+    <c:choose>
+        <c:when test="${not empty pageContext.request.queryString}">
+            <c:choose>
+                <c:when test="${fn:contains(pageContext.request.queryString, 'lang=en')}">
+                    <c:set var="enUrl" scope="request" value="?${properQueryString}"/>
+                    <c:set var="frUrl" scope="request" value="?${fn:replace(properQueryString,
+                                                                 'lang=en', 'lang=fr')}" />
+                </c:when>
+                <c:when test="${fn:contains(pageContext.request.queryString, 'lang=fr')}">
+                    <c:set var="frUrl" scope="request" value="?${properQueryString}"/>
+                    <c:set var="enUrl" scope="request" value="?${fn:replace(properQueryString,
+                                                                 'lang=fr', 'lang=en')}" />
+                </c:when>
+                <c:otherwise>
+                    <c:set var="frUrl" scope="request" value="?${properQueryString}&amp;lang=fr"/>
+                    <c:set var="enUrl" scope="request" value="?${properQueryString}&amp;lang=en"/>
+                </c:otherwise>
+            </c:choose>
+        </c:when>
+        <c:otherwise>
+            <c:set var="frUrl" scope="request" value="?lang=fr"/>
+            <c:set var="enUrl" scope="request" value="?lang=en"/>
+        </c:otherwise>
+    </c:choose>
+
+<div class="site-bottom" id="site-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="hidden-xs hidden-sm col-md-2">
+                <img src="Images/logo_tg.png" alt="">
+            </div>
+            <!-- <section class="site-bottom__mobile-col col-xs-6 col-md-2">
+                <h2 class="site-bottom__title"><a href="<fmt:message key="siteUrl"/><fmt:message key="footer.title1Url"/>"><fmt:message key="footer.title1Text"/></a></h2>
+                <nav role="navigation">
+                    <ul class="menu-bottom">
+                        <li class="menu-item"><a href="<fmt:message key="siteUrl"/><fmt:message key="footer.link1Url"/>"><fmt:message key="footer.link1Text"/></a></li>
+                        <li class="menu-item"><a href="<fmt:message key="siteUrl"/><fmt:message key="footer.link2Url"/>"><fmt:message key="footer.link2Text"/></a></li>
+                    </ul>
+                </nav>
+            </section> -->
+            <section class="site-bottom__mobile-col col-xs-6 col-md-2">
+                <h2 class="site-bottom__title"><a href="<fmt:message key="siteUrl"/><fmt:message key="footer.title2Url"/>"><fmt:message key="footer.title2Text"/></a></h2>
+                <nav role="navigation">
+                    <ul class="menu-bottom">
+                        <li class="menu-item"><a href="<fmt:message key="footer.linkRgaaTanaguru"/>">RGAA</a></li>
+                        <li class="menu-item"><a href="http://my.tanaguru.com">My Tanaguru</a></li>
+                        <li class="menu-item"><a href="http://contrast-finder.tanaguru.com/">Contrast Finder</a></li>
+                    </ul>
+                </nav>
+            </section>
+           <!-- <section class="site-bottom__mobile-col col-xs-6 col-md-2">
+                <h2 class="site-bottom__title"><a href="<fmt:message key="siteUrl"/><fmt:message key="footer.title3Url"/>"><fmt:message key="footer.title3Text"/></a></h2>
+                <nav role="navigation">
+                    <ul class="menu-bottom">
+                        <li class="menu-item"><a href="<fmt:message key="siteUrl"/><fmt:message key="footer.link3Url"/>"><fmt:message key="footer.link3Text"/></a></li>
+                        <li class="menu-item"><a href="<fmt:message key="siteUrl"/><fmt:message key="footer.link4Url"/>"><fmt:message key="footer.link4Text"/></a></li>
+                    </ul>
+                </nav>
+            </section> -->
+            <section class="site-bottom__mobile-col col-xs-6 col-md-2">
+                <h2 class="site-bottom__title"><fmt:message key="footer.followUsText"/></h2>
+                <ul class="site-bottom__social">
+                    <li class="site-bottom__social-item">
+                        <a class="site-bottom__social-link site-bottom__social-link--facebook" href="https://github.com/Tanaguru">
+                            <span class="sr-only"><fmt:message key="footer.githubText"/></span>
+                            <span class="fa fa-github"></span>
+                        </a>
+                    </li>
+                    <li class="site-bottom__social-item">
+                        <a class="site-bottom__social-link" href="https://twitter.com/tanaguruapp">
+                            <span class="sr-only"><fmt:message key="footer.twitterText"/></span>
+                            <span class="site-bottom__circled-link fa fa-twitter"></span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="lang-switcher-wrapper">
+                    <h2 class="site-bottom__title site-bottom__title--lang"><fmt:message key="footer.languagesText"/></h2>
+                    <ul id="lang-switcher" class="lang-menu-footer">
+                        <li class="lang-item"> 
+                            <a href="${enUrl}" title="Switch to english" lang="en"><abbr title="English">EN</abbr></a>
+                        </li>
+                        <li class="lang-item"> 
+                            <a href="${frUrl}" title="Passer en français" lang="fr"><abbr title="Français">FR</abbr></a> 
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<footer class="footer container" role="contentinfo">
+    <p id="footer-copyright">© <fmt:formatDate value="${now}" pattern="yyyy" /> <a href="http://www.tanaguru.com/">Tanaguru</a> - Version 0.3.4 - <a href="http://blog.tanaguru.com/">Blog Tanaguru</a> - <a href="http://twitter.com/tanaguruapp">@tanaguruapp</a></p>
+</footer>
+<c:set var="analytics" value="${googleKey}"/>
+<c:if test="${not empty analytics}">
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', '${analytics}', 'tanaguru.com');
+        ga('send', 'pageview');
+
+    </script>
+</c:if>
+
+<c:set var="piwikSiteId" value="${piwikKey}"/>
+<c:if test="${not empty piwikSiteId}">
+    <!-- Piwik -->
+    <script type="text/javascript">
+        var _paq = _paq || [];
+        _paq.push(["trackPageView"]);
+        _paq.push(["enableLinkTracking"]);
+        (function() {
+            var u = (("https:" == document.location.protocol) ? "https" : "http") + "://stats.open-s.com/";
+            _paq.push(["setTrackerUrl", u + "piwik.php"]);
+            _paq.push(["setSiteId", "${piwikSiteId}"]);
+            var d = document, g = d.createElement("script"), s = d.getElementsByTagName("script")[0];
+            g.type = "text/javascript";
+            g.defer = true;
+            g.async = true;
+            g.src = u + "piwik.js";
+            s.parentNode.insertBefore(g, s);
+        })();
+    </script>
+    <!-- End Piwik Code --> 
+</c:if>
