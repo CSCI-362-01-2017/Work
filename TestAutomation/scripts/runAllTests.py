@@ -89,12 +89,12 @@ def compileDependencies(fileName):
 def main(numTests):
     operatingSystem = platform.system()
     if(operatingSystem == "Linux"):
-        os.system("rm -r ../temp")
+        os.system("rm -r ../temp/*")
     elif(operatingSystem == "Windows"):
         os.system("del /s /q ..\\temp\\*")
         os.system('for /d %x in (..\\temp\\*) do @rd /s /q "%x"')
     elif(operatingSystem == "Darwin"):
-        os.system("rm -rf ../temp")
+        os.system("rm -rf ../temp/*")
     runTest(numTests)
 
 main(5)
