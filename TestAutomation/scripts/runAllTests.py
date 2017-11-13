@@ -5,6 +5,8 @@
 '''
 import webbrowser
 import os
+import platform
+import shutil
 
 def runTest(numTests):
         indent = "    "
@@ -37,13 +39,16 @@ def runTest(numTests):
             mylist.append(indent * 2 + "<tr>\n")
             testName = "./../TestCases/testCase" + str(i) + '.txt'
             [iD,className,method,requirement,inputs,driverFileName,oracle] = readTest(testName)
-            compileLine = "javac ./../testCaseExecutables/" + driverFileName
-            runLine = "java ./../testCaseExecutables/" + className + "Driver " + method + " " + inputs + " " + oracle
+            compileDependencies(className)
+            compileLine = "javac -cp ./../temp -d ./../temp ./../testCasesExecutables/" + driverFileName + ".java"
+            runLine = "java -cp ./../temp " + driverFileName + " " + method + " " + inputs + " " + oracle
+            print(runLine)
             os.system(compileLine)
             os.system(runLine)
-            file = open('./../temp/results.txt','r')
+            file = open('./../temp/result.txt','r')
             result = file.readline()
             file.close()
+            os.remove('./../temp/result.txt')
             mylist.append(indent * 3 + "<th>" + iD + "</th>\n")
             mylist.append(indent * 3 + "<th>" + className + "</th>\n")
             mylist.append(indent * 3 + "<th>" + method + "</th>\n")
@@ -58,7 +63,7 @@ def runTest(numTests):
         makeHTML(mylist)
 
 def makeHTML(mylist):
-        filename = "testView.html"
+        filename = "../temp/testView.html"
         file = open(filename, "w")
         file.write(''.join(mylist))
         file.close()
@@ -68,16 +73,28 @@ def makeHTML(mylist):
 	
 def readTest(testName):
     file = open(testName,'r')
-    iD = file.readline()
-    className = file.readline()
-    method = file.readline()
-    requirement = file.readline()
-    inputs = file.readline()
-    driverFilePath = file.readline()
+    iD = file.readline()[:-1]
+    className = file.readline()[:-1]
+    method = file.readline()[:-1]
+    requirement = file.readline()[:-1]
+    inputs = file.readline()[:-1]
+    driverFilePath = file.readline()[:-1]
     oracle = file.readline()
     return [iD,className,method,requirement,inputs,driverFilePath,oracle]
+
+def compileDependencies(fileName):
+    compileLine = "javac -d ./../temp ./../project/src" + fileName
+    os.system(compileLine)
         
 def main(numTests):
-	runTest(numTests)
+    operatingSystem = platform.system()
+    if(operatingSystem == "Linux"):
+        os.system("rm -r ../temp")
+    elif(operatingSystem == "Windows"):
+        os.system("del /s /q ..\\temp\\*")
+        os.system('for /d %x in (..\\temp\\*) do @rd /s /q "%x"')
+    elif(operatingSystem == "Darwin"):
+        os.system("rm -rf ../temp")
+    runTest(numTests)
 
 main(5)
