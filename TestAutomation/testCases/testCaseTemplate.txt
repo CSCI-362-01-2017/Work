@@ -1,7 +1,7 @@
 1. ID= #XXX
-2. Class being tested (File name with extention)
-3. Method being tested (full header)
+2. Class being tested (File path from .\project\src with extention)
+3. Method being tested (only the name)
 4. Requirement Being run
 5. Inputs (arguments required to make the input object/primitive)
-6. Driver File name with extention
-7. Expected resut
+6. Driver File name without extention
+7. Expected resut (if error, type Error)

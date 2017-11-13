@@ -1,7 +1,7 @@
 ID= #000
-DistanceCalculator.java
-public static double calculate(Color colorToChange, Color colorToKeep)
+/contrast-finder-utils/src/main/java/org/opens/utils/distancecalculator/DistanceCalculator.java
+calculate
 Fails if only passed one Color
 100,100,100
-distanceColorDriver.java
+distanceColorDriver
 Error
