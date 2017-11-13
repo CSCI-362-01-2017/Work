@@ -1,7 +1,7 @@
 ID= #004
-/contrast-finder-utils/src/main/java/org/opens/utils/DistanceCalculator.java
+/contrast-finder-utils/src/main/java/org/opens/utils/distancecalculator/DistanceCalculator.java
 calculate
 Works when passed black and white
 0,0,0 255,255,255
 distanceColorDriver
-441.672955930063709849498817084
+367.77

@@ -1,5 +1,5 @@
 ID= #001
-/contrast-finder-utils/src/main/java/org/opens/utils/DistanceCalculator.java
+/contrast-finder-utils/src/main/java/org/opens/utils/distancecalculator/DistanceCalculator.java
 calculate
 Fails if not passed anything
 

@@ -1,5 +1,5 @@
 ID= #002
-/contrast-finder-utils/src/main/java/org/opens/utils/DistanceCalculator.java
+/contrast-finder-utils/src/main/java/org/opens/utils/distancecalculator/DistanceCalculator.java
 calculate
 Works for identical inputs
 100,100,100 100,100,100
