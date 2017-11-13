@@ -6,9 +6,8 @@
 import webbrowser
 import os
 import platform
-import shutil
 
-def runTest(numTests):
+def runTest():
         indent = "    "
         mylist = []
         
@@ -35,27 +34,29 @@ def runTest(numTests):
 #        3. Populate table with return value (sucess or fail)
 #        4. run next test
 #        '''
-        for i in range(numTests):
-            mylist.append(indent * 2 + "<tr>\n")
-            testName = "./../TestCases/testCase" + str(i) + '.txt'
-            [iD,className,method,requirement,inputs,driverFileName,oracle] = readTest(testName)
-            compileDependencies(className)
-            compileLine = "javac -cp ./../temp -d ./../temp ./../testCasesExecutables/" + driverFileName + ".java"
-            runLine = "java -cp ./../temp " + driverFileName + " " + method + " " + inputs + " " + oracle
-            print(runLine)
-            os.system(compileLine)
-            os.system(runLine)
-            file = open('./../temp/result.txt','r')
-            result = file.readline()
-            file.close()
-            os.remove('./../temp/result.txt')
-            mylist.append(indent * 3 + "<th>" + iD + "</th>\n")
-            mylist.append(indent * 3 + "<th>" + className + "</th>\n")
-            mylist.append(indent * 3 + "<th>" + method + "</th>\n")
-            mylist.append(indent * 3 + "<th>" + inputs + "</th>\n")
-            mylist.append(indent * 3 + "<th>" + oracle + "</th>\n")
-            mylist.append(indent * 3 + "<th>" + result + "</th>\n")
-            mylist.append("</tr>\n")
+        path = os.path.abspath('./../testCases')
+        for fileName in os.listdir(path):
+            if (fileName != "testCaseTemplate.txt"):
+                mylist.append(indent * 2 + "<tr>\n")
+                testName = "./../TestCases/" + fileName
+                [iD,className,method,requirement,inputs,driverFileName,oracle] = readTest(testName)
+                compileDependencies(className)
+                compileLine = "javac -cp ./../temp -d ./../temp ./../testCasesExecutables/" + driverFileName + ".java"
+                runLine = "java -cp ./../temp " + driverFileName + " " + method + " " + inputs + " " + oracle
+                print(runLine)
+                os.system(compileLine)
+                os.system(runLine)
+                file = open('./../temp/result.txt','r')
+                result = file.readline()
+                file.close()
+                os.remove('./../temp/result.txt')
+                mylist.append(indent * 3 + "<th>" + iD + "</th>\n")
+                mylist.append(indent * 3 + "<th>" + className + "</th>\n")
+                mylist.append(indent * 3 + "<th>" + method + "</th>\n")
+                mylist.append(indent * 3 + "<th>" + inputs + "</th>\n")
+                mylist.append(indent * 3 + "<th>" + oracle + "</th>\n")
+                mylist.append(indent * 3 + "<th>" + result + "</th>\n")
+                mylist.append("</tr>\n")
 
         mylist.append(indent + "</table>\n")
         mylist.append("</body>\n")
@@ -72,6 +73,7 @@ def makeHTML(mylist):
         controller.open('file://' + os.path.realpath(filename))
 	
 def readTest(testName):
+    print(testName)
     file = open(testName,'r')
     iD = file.readline()[:-1]
     className = file.readline()[:-1]
@@ -86,7 +88,7 @@ def compileDependencies(fileName):
     compileLine = "javac -d ./../temp ./../project/src" + fileName
     os.system(compileLine)
         
-def main(numTests):
+def main():
     operatingSystem = platform.system()
     if(operatingSystem == "Linux"):
         os.system("rm -r ../temp/*")
@@ -95,6 +97,6 @@ def main(numTests):
         os.system('for /d %x in (..\\temp\\*) do @rd /s /q "%x"')
     elif(operatingSystem == "Darwin"):
         os.system("rm -rf ../temp/*")
-    runTest(numTests)
+    runTest()
 
-main(5)
+main()
