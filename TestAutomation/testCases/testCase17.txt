@@ -1,0 +1,7 @@
+ID= #017
+/contrast-finder-utils/src/main/java/org/opens/utils/colorconvertor/ColorConverter.java
+getBrightness
+Succeeds when passed a non-white/non-black
+100,200,123
+colorConverterDriver
+0.78431374

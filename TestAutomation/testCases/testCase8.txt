@@ -1,0 +1,7 @@
+ID= #008
+/contrast-finder-utils/src/main/java/org/opens/utils/contrastchecker/ContrastChecker.java
+distanceColor
+Succeeds if passed white and black
+0,0,0 255,255,255
+contrastCheckerDriver
+441.672955930063709849498817084

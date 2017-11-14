@@ -1,0 +1,7 @@
+ID= #022
+/contrast-finder-utils/src/main/java/org/opens/utils/colorconvertor/ColorConverter.java
+getHue
+Fails when passed empty argument
+
+colorConverterDriver
+Error

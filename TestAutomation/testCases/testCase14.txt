@@ -1,0 +1,7 @@
+ID= #014
+/contrast-finder-utils/src/main/java/org/opens/utils/colorconvertor/ColorConverter.java
+getBrightness
+Fails when passed empty argument
+
+colorConverterDriver
+Error

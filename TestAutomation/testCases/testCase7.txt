@@ -1,0 +1,7 @@
+ID= #007
+/contrast-finder-utils/src/main/java/org/opens/utils/contrastchecker/ContrastChecker.java
+distanceColor
+Works when passed the same color
+100,100,100 100,100,100
+contrastCheckerDriver
+0

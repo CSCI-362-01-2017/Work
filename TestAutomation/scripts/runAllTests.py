@@ -43,6 +43,7 @@ def runTest():
                 compileDependencies(className)
                 compileLine = "javac -cp ./../temp -d ./../temp ./../testCasesExecutables/" + driverFileName + ".java"
                 runLine = "java -cp ./../temp " + driverFileName + " " + method + " " + inputs + " " + oracle
+                print(fileName)
                 print(runLine)
                 os.system(compileLine)
                 os.system(runLine)
@@ -73,7 +74,6 @@ def makeHTML(mylist):
         controller.open('file://' + os.path.realpath(filename))
 	
 def readTest(testName):
-    print(testName)
     file = open(testName,'r')
     iD = file.readline()[:-1]
     className = file.readline()[:-1]

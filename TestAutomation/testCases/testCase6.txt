@@ -1,0 +1,7 @@
+ID= #006
+/contrast-finder-utils/src/main/java/org/opens/utils/contrastchecker/ContrastChecker.java
+distanceColor
+Fails if not passed any colors
+
+contrastCheckerDriver
+Error

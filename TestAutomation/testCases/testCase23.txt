@@ -1,0 +1,7 @@
+ID= #023
+/contrast-finder-utils/src/main/java/org/opens/utils/colorconvertor/ColorConverter.java
+getHue
+Succeeds when passed white
+255,255,255
+colorConverterDriver
+0

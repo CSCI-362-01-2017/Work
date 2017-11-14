@@ -1,0 +1,7 @@
+ID= #012
+/contrast-finder-utils/src/main/java/org/opens/utils/contrastchecker/ContrastChecker.java
+getLuminosity
+Succeeds when passed a non-black color
+200,50,123
+contrastCheckerDriver
+0.1599062493613899

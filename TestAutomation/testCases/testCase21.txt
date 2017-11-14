@@ -1,0 +1,7 @@
+ID= #021
+/contrast-finder-utils/src/main/java/org/opens/utils/colorconvertor/ColorConverter.java
+getSaturation
+Succeeds when passed a non-white/non-black
+100,200,123
+colorConverterDriver
+0.5

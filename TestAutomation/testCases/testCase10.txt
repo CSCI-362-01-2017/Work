@@ -1,0 +1,7 @@
+ID= #010
+/contrast-finder-utils/src/main/java/org/opens/utils/contrastchecker/ContrastChecker.java
+getLuminosity
+Fails when not passed a color
+
+contrastCheckerDriver
+Error

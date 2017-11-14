@@ -56,10 +56,14 @@ public class distanceColorDriver {
         }
         String passfail ="";
         double result = -1;
-        System.out.println(errOracle);
         try{
             result = DistanceCalculator.calculate(color1, color2);
-            System.out.println(result);
+            if(Double.compare(result, oracle) == 0){
+                passfail = "true";
+            }
+            else{
+                passfail = "false";
+            }
         }
         catch(NullPointerException error){
             if(errOracle.compareToIgnoreCase("Error") == 0){
@@ -69,15 +73,6 @@ public class distanceColorDriver {
                 passfail = "false";
             }
         }
-        System.out.println(passfail);
-		if((Double.compare(result, oracle) == 0) && passfail == "")
-		{
-			passfail = "true";
-		}
-		else if(Double.compare(result, oracle) != 0 && passfail == "")
-		{
-			passfail = "false";
-		}
 		PrintWriter writer = new PrintWriter("./../temp/result.txt", "UTF-8");
 		writer.println(passfail);
 		writer.close();         
