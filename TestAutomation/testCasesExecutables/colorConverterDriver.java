@@ -58,7 +58,6 @@ public class colorConverterDriver{
 		}
 		try{
             Float result = ColorConverter.getSaturation(color);
-            System.out.println(result);
             if(Float.compare(result, oracle) == 0){
                 rtn = true;
             }
@@ -127,7 +126,6 @@ public class colorConverterDriver{
 		}
 		try{
             Float result = ColorConverter.getHue(color);
-            System.out.println(result);
             if(Float.compare(result, oracle) == 0){
                 rtn = true;
             }
