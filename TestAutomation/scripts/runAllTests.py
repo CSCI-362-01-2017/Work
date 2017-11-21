@@ -6,14 +6,32 @@
 import webbrowser
 import os
 import platform
+import subprocess
 
 def runTest():
         indent = "    "
         mylist = []
+        mycss = []
+
+        mycss.append("h1 {\n")
+        mycss.append(indent + "margin: 0 auto;\n")
+        mycss.append(indent + "text-align: center;\n")
+        mycss.append("}\n")
+        mycss.append("th {\n")
+        mycss.append(indent + "width: 14.29%;\n")
+        mycss.append("}\n")
+        mycss.append("table {\n")
+        mycss.append(indent + "margin: 0 auto;\n")
+        mycss.append(indent + "width: 75%;\n")
+        mycss.append("}\n")
+        mycss.append("table, th, td {\n")
+        mycss.append(indent + "border: 1px solid black;\n")
+        mycss.append(indent + "border-collapse: collapse;\n")
+        mycss.append("}\n")
         
         mylist.append("<head>\n")
         mylist.append(indent + "<title>Test View</title>\n")
-        mylist.append(indent + "<link rel=stylesheet href=\"style.css\"/>\n")
+        mylist.append(indent + "<link rel=stylesheet href=\"tempStyle.css\"/>\n")
         mylist.append("</head>\n")
         mylist.append("<body>\n")
         mylist.append(indent + "<h1><b>Team \"Work\" Unit Tests</b></h1>\n")
@@ -23,9 +41,9 @@ def runTest():
         mylist.append(indent * 3 + "<th>ID</th>\n")
         mylist.append(indent * 3 + "<th>Class</th>\n")
         mylist.append(indent * 3 + "<th>Method</th>\n")
+        mylist.append(indent * 3 + "<th>Requirement</th>\n")
         mylist.append(indent * 3 + "<th>Input</th>\n")
         mylist.append(indent * 3 + "<th>Oracle</th>\n")
-#        mylist.append(indent * 3 + "<th>Outcome</th>\n")
         mylist.append(indent * 3 + "<th>Status</th>\n")
         mylist.append(indent * 2 + "</tr>\n")
 #	    '''
@@ -45,8 +63,8 @@ def runTest():
                 runLine = "java -cp ./../temp " + driverFileName + " " + method + " " + inputs + " " + oracle
                 print(fileName)
                 print(runLine)
-                os.system(compileLine)
-                os.system(runLine)
+                subprocess.call(compileLine)
+                subprocess.call(runLine)
                 file = open('./../temp/result.txt','r')
                 result = file.readline()
                 file.close()
@@ -54,6 +72,7 @@ def runTest():
                 mylist.append(indent * 3 + "<th>" + iD + "</th>\n")
                 mylist.append(indent * 3 + "<th>" + className + "</th>\n")
                 mylist.append(indent * 3 + "<th>" + method + "</th>\n")
+                mylist.append(indent * 3 + "<th>" + requirement + "</th>\n")
                 mylist.append(indent * 3 + "<th>" + inputs + "</th>\n")
                 mylist.append(indent * 3 + "<th>" + oracle + "</th>\n")
                 mylist.append(indent * 3 + "<th>" + result + "</th>\n")
@@ -63,15 +82,17 @@ def runTest():
         mylist.append("</body>\n")
 	
         makeHTML(mylist)
+        makeCSS(mycss)
 
 def makeHTML(mylist):
-        filename = "../temp/testView.html"
-        file = open(filename, "w")
+        new_path = os.path.relpath("..\\temp\\tempView.html")
+        
+        file = open(new_path, "w")
         file.write(''.join(mylist))
         file.close()
 
         controller = webbrowser.get()
-        controller.open('file://' + os.path.realpath(filename))
+        controller.open(new_path)
 	
 def readTest(testName):
     file = open(testName,'r')
@@ -86,7 +107,14 @@ def readTest(testName):
 
 def compileDependencies(fileName):
     compileLine = "javac -d ./../temp ./../project/src" + fileName
-    os.system(compileLine)
+    subprocess.call(compileLine)
+    #os.system(compileLine)
+
+def makeCSS(mycss):
+        new_path = os.path.relpath("../temp/tempStyle.css")
+        file = open(new_path, "w")
+        file.write(''.join(mycss))
+        file.close()
         
 def main():
     operatingSystem = platform.system()
