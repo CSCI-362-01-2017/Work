@@ -65,9 +65,6 @@ def runTest():
                 compiledList.append(className)
                 compiledList.append(driverFileName)
                 runLine = "java " + driverFileName[:-1] + " " + method[:-1] + '  ' + inputs[:-1] + ' ' + oracle
-                file = open('runLine.txt','w')
-                file.write(runLine)
-                file.close
                 print(runLine)
                 subprocess.call(runLine, shell=True,cwd=tempPath)
                 file = open('./../temp/result.txt','r')
@@ -121,14 +118,8 @@ def compileDependencies(fileName,exeName,compiledList):
     compileClassLine = 'javac -d "'+ tempPath + '" "' + classpath +'"'
     compileExeLine = 'javac -d . "' + exePath +'"'
     if(compiledList.count(fileName) == 0):
-        file = open('classLine.txt','w')
-        file.write(compileClassLine)
-        file.close
         subprocess.call(compileClassLine, shell=True,cwd=sourcePath)
     if(compiledList.count(exeName) == 0):
-        file = open('exeLine.txt','w')
-        file.write(compileExeLine)
-        file.close
         subprocess.call(compileExeLine, shell=True,cwd=tempPath)
 
 def makeCSS(mycss):
