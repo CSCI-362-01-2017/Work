@@ -28,7 +28,7 @@ import java.awt.Color;
 public final class ColorConverter {
 
     private static final int MAX_COMPONENT = 3;
-    private static final int BRIGHTNESS = 2;
+    private static final int BRIGHTNESS = 1;
     private static final int SATURATION = 1;
     private static final int HUE = 0;
     private static final int R_BEGIN_COLOR = 0;
@@ -101,7 +101,7 @@ public final class ColorConverter {
     public static Float getHue(Color color) {
         float[] hsbValues = new float[MAX_COMPONENT];
         Float hue;
-        Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), hsbValues);
+        Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getAlpha(), hsbValues);
         hue = hsbValues[HUE];
         return hue;
     }
