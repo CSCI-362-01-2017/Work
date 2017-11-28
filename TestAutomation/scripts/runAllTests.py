@@ -1,3 +1,4 @@
+#!/usr/bin/python
 '''
     Team "Work" testing script with HTML output written in Python.
     Team Members: Omer Omer, Joshua Bingham, Eduardo Abreu
@@ -52,25 +53,28 @@ def runTest():
 #        3. Populate table with return value (sucess or fail)
 #        4. run next test
 #        '''
-        path = os.path.abspath('./../testCases')
+        path = os.path.abspath('./testCases')
         compiledList = []
-        tempPath = os.path.abspath('./../temp')
+        tempPath = os.path.abspath('./temp')
         tempPath = tempPath.replace('\\','\\\\')
         for fileName in os.listdir(path):
             if (fileName != "testCaseTemplate.txt"):
                 mylist.append(indent * 2 + "<tr>\n")
-                testName = "./../testCases/" + fileName
+                testName = "./testCases/" + fileName
                 [iD,className,method,requirement,inputs,driverFileName,oracle] = readTest(testName)
                 compileDependencies(className,driverFileName,compiledList)
                 compiledList.append(className)
                 compiledList.append(driverFileName)
                 runLine = "java " + driverFileName[:-1] + " " + method[:-1] + '  ' + inputs[:-1] + ' ' + oracle
+                file = open('runLine.txt','w')
+                file.write(runLine)
+                file.close
                 print(runLine)
                 subprocess.call(runLine, shell=True,cwd=tempPath)
-                file = open('./../temp/result.txt','r')
+                file = open('./temp/result.txt','r')
                 result = file.readline()
                 file.close()
-                os.remove('./../temp/result.txt')
+                os.remove('./temp/result.txt')
                 mylist.append(indent * 3 + "<th>" + iD + "</th>\n")
                 mylist.append(indent * 3 + "<th>" + className + "</th>\n")
                 mylist.append(indent * 3 + "<th>" + method + "</th>\n")
@@ -87,7 +91,7 @@ def runTest():
         makeCSS(mycss)
 
 def makeHTML(mylist):
-        new_path = os.path.relpath("../temp/tempView.html")
+        new_path = os.path.abspath("./temp/tempView.html")
         
         file = open(new_path, "w")
         file.write(''.join(mylist))
@@ -109,21 +113,27 @@ def readTest(testName):
     return [iD,className,method,requirement,inputs,driverFilePath,oracle]
 
 def compileDependencies(fileName,exeName,compiledList):
-    classpath = os.path.abspath("./../project/src" + fileName[:-1])
+    classpath = os.path.abspath("./project/src" + fileName[:-1])
     classpath = classpath.replace('\\','\\\\')
     sourcePath = os.path.abspath(classpath + '/..')
-    exePath = os.path.abspath("./../testCasesExecutables/" + exeName[:-1] + ".java")
+    exePath = os.path.abspath("./testCasesExecutables/" + exeName[:-1] + ".java")
     exePath = exePath.replace('\\','\\\\')
-    tempPath = os.path.abspath('./../temp')
+    tempPath = os.path.abspath('./temp')
     compileClassLine = 'javac -d "'+ tempPath + '" "' + classpath +'"'
     compileExeLine = 'javac -d . "' + exePath +'"'
     if(compiledList.count(fileName) == 0):
+        file = open('classLine.txt','w')
+        file.write(compileClassLine)
+        file.close
         subprocess.call(compileClassLine, shell=True,cwd=sourcePath)
     if(compiledList.count(exeName) == 0):
+        file = open('exeLine.txt','w')
+        file.write(compileExeLine)
+        file.close
         subprocess.call(compileExeLine, shell=True,cwd=tempPath)
 
 def makeCSS(mycss):
-        new_path = os.path.relpath("../temp/tempStyle.css")
+        new_path = os.path.abspath("./temp/tempStyle.css")
         file = open(new_path, "w")
         file.write(''.join(mycss))
         file.close()
@@ -131,12 +141,12 @@ def makeCSS(mycss):
 def main():
     operatingSystem = platform.system()
     if(operatingSystem == "Linux"):
-        os.system("rm -r ../temp/*")
+        os.system("rm -r ./temp/*")
     elif(operatingSystem == "Windows"):
-        os.system("del /s /q ..\\temp\\*")
-        os.system('for /d %x in (..\\temp\\*) do @rd /s /q "%x"')
+        os.system("del /s /q .\\temp\\*")
+        os.system('for /d %x in (.\\temp\\*) do @rd /s /q "%x"')
     elif(operatingSystem == "Darwin"):
-        os.system("rm -rf ../temp/*")
+        os.system("rm -rf ./temp/*")
     runTest()
 
 main()
