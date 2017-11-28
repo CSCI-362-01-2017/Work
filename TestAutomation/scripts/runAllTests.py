@@ -46,25 +46,30 @@ def runTest():
         mylist.append(indent * 3 + "<th>Oracle</th>\n")
         mylist.append(indent * 3 + "<th>Status</th>\n")
         mylist.append(indent * 2 + "</tr>\n")
-#	    '''
+#       '''
 #        1. Populate table with test case information.
 #        2. Run drive
 #        3. Populate table with return value (sucess or fail)
 #        4. run next test
 #        '''
         path = os.path.abspath('./../testCases')
+        compiledList = []
+        tempPath = os.path.abspath('./../temp')
+        tempPath = tempPath.replace('\\','\\\\')
         for fileName in os.listdir(path):
             if (fileName != "testCaseTemplate.txt"):
                 mylist.append(indent * 2 + "<tr>\n")
-                testName = "./../TestCases/" + fileName
+                testName = "./../testCases/" + fileName
                 [iD,className,method,requirement,inputs,driverFileName,oracle] = readTest(testName)
-                compileDependencies(className)
-                compileLine = "javac -cp ./../temp -d ./../temp ./../testCasesExecutables/" + driverFileName + ".java"
-                runLine = "java -cp ./../temp " + driverFileName + " " + method + " " + inputs + " " + oracle
-                print(fileName)
+                compileDependencies(className,driverFileName,compiledList)
+                compiledList.append(className)
+                compiledList.append(driverFileName)
+                runLine = "java " + driverFileName[:-1] + " " + method[:-1] + '  ' + inputs[:-1] + ' ' + oracle
+                file = open('runLine.txt','w')
+                file.write(runLine)
+                file.close
                 print(runLine)
-                subprocess.call(compileLine)
-                subprocess.call(runLine)
+                subprocess.call(runLine, shell=True,cwd=tempPath)
                 file = open('./../temp/result.txt','r')
                 result = file.readline()
                 file.close()
@@ -80,12 +85,12 @@ def runTest():
 
         mylist.append(indent + "</table>\n")
         mylist.append("</body>\n")
-	
+    
         makeHTML(mylist)
         makeCSS(mycss)
 
 def makeHTML(mylist):
-        new_path = os.path.relpath("..\\temp\\tempView.html")
+        new_path = os.path.relpath("../temp/tempView.html")
         
         file = open(new_path, "w")
         file.write(''.join(mylist))
@@ -93,7 +98,7 @@ def makeHTML(mylist):
 
         controller = webbrowser.get()
         controller.open(new_path)
-	
+    
 def readTest(testName):
     file = open(testName,'r')
     iD = file.readline()[:-1]
@@ -103,12 +108,28 @@ def readTest(testName):
     inputs = file.readline()[:-1]
     driverFilePath = file.readline()[:-1]
     oracle = file.readline()
+    file.close()
     return [iD,className,method,requirement,inputs,driverFilePath,oracle]
 
-def compileDependencies(fileName):
-    compileLine = "javac -d ./../temp ./../project/src" + fileName
-    subprocess.call(compileLine)
-    #os.system(compileLine)
+def compileDependencies(fileName,exeName,compiledList):
+    classpath = os.path.abspath("./../project/src" + fileName[:-1])
+    classpath = classpath.replace('\\','\\\\')
+    sourcePath = os.path.abspath(classpath + '/..')
+    exePath = os.path.abspath("./../testCasesExecutables/" + exeName[:-1] + ".java")
+    exePath = exePath.replace('\\','\\\\')
+    tempPath = os.path.abspath('./../temp')
+    compileClassLine = 'javac -d "'+ tempPath + '" "' + classpath +'"'
+    compileExeLine = 'javac -d . "' + exePath +'"'
+    if(compiledList.count(fileName) == 0):
+        file = open('classLine.txt','w')
+        file.write(compileClassLine)
+        file.close
+        subprocess.call(compileClassLine, shell=True,cwd=sourcePath)
+    if(compiledList.count(exeName) == 0):
+        file = open('exeLine.txt','w')
+        file.write(compileExeLine)
+        file.close
+        subprocess.call(compileExeLine, shell=True,cwd=tempPath)
 
 def makeCSS(mycss):
         new_path = os.path.relpath("../temp/tempStyle.css")
